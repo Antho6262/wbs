@@ -6,17 +6,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap');
 
 :root{
-  --bg-0:#e6e5e1;
-  --bg-1:#d8d7d2;
-  --card:#e9e8e4;
-  --card-2:#dedcd7;
-  --line:#bfbdb5;
+  --bg-0:#cfcec9;
+  --bg-1:#c3c2bd;
+  --card:#dcdbd6;
+  --card-2:#cdccc6;
+  --line:#a8a69e;
   --sunset-1:#0f0f12;   /* encre : accent principal */
   --sunset-2:#2b2d33;
   --gold:#b08d3c;       /* or : montants, accents de luxe */
   --gold-2:#e6cf8e;
   --cream:#17181c;      /* texte principal */
-  --muted:#67655e;
+  --muted:#55534d;
   --danger:#d93a3a;
   --success:#1f9d6b;
   --glow:rgba(15,15,18,.10);
@@ -47,7 +47,7 @@ h1,h2,h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacin
 .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
 .login-card{
   width:100%;max-width:440px;
-  background:#efeeea;
+  background:#e6e5e0;
   border:1px solid var(--line);
   border-radius:18px;
   padding:34px 32px 30px;
@@ -69,7 +69,7 @@ h1,h2,h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacin
 .field label{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;}
 select, input[type=number], input[type=text], input[type=password], input[type=date], input[type=time], input[type=datetime-local]{
   color-scheme:light;
-  background:#efeeea;
+  background:#e6e5e0;
   border:1px solid var(--line);
   color:var(--cream);
   padding:10px 11px;
@@ -95,7 +95,7 @@ button.submit{
 }
 button.submit:hover{background:#000;transform:translateY(-1px);box-shadow:0 8px 20px rgba(15,15,18,.22);}
 button.ghost, a.ghost{
-  background:#efeeea;border:1px solid var(--line);color:var(--cream);
+  background:#e6e5e0;border:1px solid var(--line);color:var(--cream);
   padding:9px 16px;border-radius:var(--radius);cursor:pointer;
   font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;font-size:13px;
   transition:all .15s;
@@ -106,7 +106,7 @@ button.ghost:hover, a.ghost:hover{border-color:var(--sunset-1);background:var(--
 .shell{display:flex;min-height:100vh;}
 .sidebar{
   width:var(--sidebar-w);flex-shrink:0;
-  background:rgba(224,223,219,.97);
+  background:rgba(206,205,200,.97);
   border-right:1px solid var(--line);
   padding:22px 14px;
   position:sticky;top:0;height:100vh;
@@ -144,7 +144,7 @@ button.ghost:hover, a.ghost:hover{border-color:var(--sunset-1);background:var(--
 
 /* ---------- CARD ---------- */
 .card{
-  background:rgba(233,232,228,.88);
+  background:rgba(220,219,214,.88);
   border:1px solid var(--line);
   border-radius:14px;
   padding:20px;
@@ -173,7 +173,7 @@ button.ghost:hover, a.ghost:hover{border-color:var(--sunset-1);background:var(--
 /* ---------- TABS ---------- */
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
 .tabs button{
-  background:#efeeea;border:1px solid var(--line);color:var(--muted);
+  background:#e6e5e0;border:1px solid var(--line);color:var(--muted);
   padding:9px 18px;border-radius:var(--radius);
   font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:14px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;
   transition:all .15s;
@@ -199,7 +199,7 @@ tr:last-child td{border-bottom:none;}
 tr:hover td{background:var(--bg-1);}
 .amt{color:var(--gold);font-weight:700;}
 .del{
-  background:#efeeea;border:1px solid var(--danger);color:var(--danger);
+  background:#e6e5e0;border:1px solid var(--danger);color:var(--danger);
   border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:11px;font-family:'JetBrains Mono',monospace;
 }
 .del:hover{background:var(--danger);color:#fff;}
@@ -222,7 +222,7 @@ tr:hover td{background:var(--bg-1);}
 .member-checklist{display:flex;flex-wrap:wrap;gap:8px;padding:10px;background:var(--bg-1);border:1px solid var(--line);border-radius:var(--radius);}
 .member-checklist label{
   display:flex;align-items:center;gap:6px;
-  background:#efeeea;border:1px solid var(--line);border-radius:20px;
+  background:#e6e5e0;border:1px solid var(--line);border-radius:20px;
   padding:6px 12px;font-size:13px;cursor:pointer;
 }
 .member-checklist label:has(input:checked){border-color:var(--sunset-1);background:var(--sunset-1);color:#fff;}
@@ -277,7 +277,7 @@ tr:hover td{background:var(--bg-1);}
 ::-webkit-scrollbar-thumb:hover{background:#9ea3ad;}
 
 .hero-banner{width:100%;display:block;border-radius:16px;margin:0 0 16px;border:1px solid var(--gold);box-shadow:0 14px 40px rgba(15,15,18,.22);}
-.login-card{background:rgba(233,232,228,.96);border-top:3px solid var(--gold);}
+.login-card{background:rgba(220,219,214,.96);border-top:3px solid var(--gold);}
 .sidebar .brand .brand-logo,.login-logo{border:1px solid var(--gold);}
 .tresor-ligne{border-top-color:var(--gold-2);}
 .tresor-ile.atteinte .label{color:var(--gold);}
@@ -290,4 +290,4 @@ tr:hover td{background:var(--bg-1);}
 .tabs button{color:#1c1c20;border-bottom:2px solid var(--gold);}
 .tabs button:hover{color:var(--gold);border-color:var(--gold);}
 .tabs button.active{background:#141416;color:var(--gold-2);border-color:#141416;border-bottom-color:var(--gold);box-shadow:0 4px 14px rgba(15,15,18,.25);}
-.hero-banner{height:340px;object-fit:cover;object-position:center 28%;}
+.hero-banner{height:auto;}
