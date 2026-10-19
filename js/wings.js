@@ -51,3 +51,35 @@ function wbsWingsSVG(opts) {
     <g transform="scale(-1,1)">${wing}</g>
   </svg>`;
 }
+
+
+// ============================================================
+// Emojis haute qualité : Twemoji (images vectorielles nettes, couleurs vives)
+// Se réapplique tout seul sur le contenu ajouté dynamiquement.
+// ============================================================
+(function () {
+  const SRC = 'https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js';
+  let pending = false;
+  function parse() {
+    pending = false;
+    if (!window.twemoji || !document.body) return;
+    try {
+      window.twemoji.parse(document.body, {
+        folder: 'svg', ext: '.svg', className: 'emoji',
+        base: 'https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/'
+      });
+    } catch (e) { /* si la CDN est indisponible, on garde les emojis normaux */ }
+  }
+  function planifier() { if (!pending) { pending = true; setTimeout(parse, 60); } }
+  function demarrer() {
+    const sc = document.createElement('script');
+    sc.src = SRC; sc.async = true;
+    sc.onload = () => {
+      parse();
+      new MutationObserver(planifier).observe(document.body, { childList: true, subtree: true, characterData: true });
+    };
+    document.head.appendChild(sc);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', demarrer);
+  else demarrer();
+})();

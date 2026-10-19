@@ -43,7 +43,7 @@ button, input, select, textarea{font-family:'Barlow',sans-serif;color:var(--crea
 h1,h2,h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin:0;color:var(--sunset-1);}
 
 /* ---------- LOGIN / SETUP ---------- */
-.login-body{background:var(--bg-1);}
+.login-body{background:transparent;}
 .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
 .login-card{
   width:100%;max-width:440px;
@@ -370,3 +370,14 @@ body{background:transparent;}
 
 /* blocs retirés de l'affichage (priorité sur le style inline posé par le JS) */
 .bloc-cache{display:none !important;}
+
+/* ---------- Icônes premium du menu (SVG or) ---------- */
+.navlist a .ic{display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;color:#8a6a1f;filter:none;}
+.navlist a .ic svg{width:21px;height:21px;}
+.navlist a:hover .ic{color:#b08d3c;}
+.navlist a.active .ic{color:var(--gold-2);filter:drop-shadow(0 0 4px rgba(230,207,142,.45));}
+/* emojis haute qualité (Twemoji) */
+img.emoji{height:1.3em;width:1.3em;margin:0 .12em;vertical-align:-.28em;display:inline-block;filter:drop-shadow(0 1px 1.5px rgba(15,15,18,.28));}
+.tabs button img.emoji{height:1.35em;width:1.35em;}
+h2 img.emoji,h3 img.emoji{height:1.15em;width:1.15em;}
+.stat .l img.emoji{height:1.25em;width:1.25em;}

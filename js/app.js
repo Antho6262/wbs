@@ -1,19 +1,20 @@
 // ============================================================
 // W.B.S — Shell commun (sidebar + topbar)
 // ============================================================
+const WBS_ICONS = {"dashboard": "<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20h14V9.5\"/><path d=\"M9.5 20v-6h5v6\"/></svg>", "planning": "<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3.5\" y=\"5\" width=\"17\" height=\"15.5\" rx=\"2.5\"/><path d=\"M3.5 10h17M8 3v4M16 3v4\"/><path d=\"M8 14h2M12 14h2M8 17h2\"/></svg>", "tracker": "<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"8.5\"/><circle cx=\"12\" cy=\"12\" r=\"4.5\"/><circle cx=\"12\" cy=\"12\" r=\"1\" fill=\"currentColor\"/></svg>", "stock": "<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z\"/><path d=\"M3.5 7.5 12 12l8.5-4.5M12 12v9\"/></svg>", "armes": "<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M12 2v5M12 17v5M2 12h5M17 12h5\"/></svg>", "transactions": "<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 3h12v18l-3-2-3 2-3-2-3 2z\"/><path d=\"M9 8h6M9 12h6\"/></svg>", "blanchiment": "<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2.5\" y=\"6.5\" width=\"19\" height=\"11\" rx=\"2\"/><circle cx=\"12\" cy=\"12\" r=\"2.6\"/><path d=\"M6 10v4M18 10v4\"/></svg>", "stats": "<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 20V10M10 20V4M16 20v-7M21 20H3\"/></svg>", "paye": "<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><ellipse cx=\"12\" cy=\"6.5\" rx=\"7.5\" ry=\"3\"/><path d=\"M4.5 6.5v5c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-5\"/><path d=\"M4.5 11.5v5c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-5\"/></svg>", "taxes": "<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3v18M7 21h10\"/><path d=\"M4 7h16\"/><path d=\"m4 7-2.5 7a3.5 3 0 0 0 5 0z\"/><path d=\"m20 7-2.5 7a3.5 3 0 0 0 5 0z\"/></svg>", "admin": "<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z\"/></svg>", "profil": "<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7\"/></svg>"};
 const NAV_ITEMS = [
-  { page: 'dashboard',    icon: '🏛️', label: 'Dashboard',    file: 'dashboard.html' },
-  { page: 'planning',     icon: '📅', label: 'Planning',     file: 'planning.html' },
-  { page: 'tracker',      icon: '🎯', label: 'Tracker',      file: 'tracker.html' },
-  { page: 'stock',        icon: '📦', label: 'Stock',        file: 'stock.html' },
-  { page: 'armes',        icon: '🔫', label: 'Armurerie',    file: 'armes.html' },
-  { page: 'transactions', icon: '🧾', label: 'Transactions', file: 'transactions.html' },
-  { page: 'blanchiment',  icon: '💸', label: 'Blanchiment',  file: 'blanchiment.html' },
-  { page: 'stats',        icon: '📊', label: 'Stats & Quotas', file: 'stats.html' },
-  { page: 'paye',         icon: '💰', label: 'Paye',         file: 'paye.html' },
-  { page: 'taxes',        icon: '⚖️', label: 'Taxes',        file: 'taxes.html' },
-  { page: 'admin',        icon: '⚙️', label: 'Admin',        file: 'admin.html', adminOnly: true },
-  { page: 'profil',       icon: '👤', label: 'Profil',       file: 'profil.html' },
+  { page: 'dashboard',    icon: WBS_ICONS['dashboard'], label: 'Dashboard',    file: 'dashboard.html' },
+  { page: 'planning',     icon: WBS_ICONS['planning'], label: 'Planning',     file: 'planning.html' },
+  { page: 'tracker',      icon: WBS_ICONS['tracker'], label: 'Tracker',      file: 'tracker.html' },
+  { page: 'stock',        icon: WBS_ICONS['stock'], label: 'Stock',        file: 'stock.html' },
+  { page: 'armes',        icon: WBS_ICONS['armes'], label: 'Armurerie',    file: 'armes.html' },
+  { page: 'transactions', icon: WBS_ICONS['transactions'], label: 'Transactions', file: 'transactions.html' },
+  { page: 'blanchiment',  icon: WBS_ICONS['blanchiment'], label: 'Blanchiment',  file: 'blanchiment.html' },
+  { page: 'stats',        icon: WBS_ICONS['stats'], label: 'Stats & Quotas', file: 'stats.html' },
+  { page: 'paye',         icon: WBS_ICONS['paye'], label: 'Paye',         file: 'paye.html' },
+  { page: 'taxes',        icon: WBS_ICONS['taxes'], label: 'Taxes',        file: 'taxes.html' },
+  { page: 'admin',        icon: WBS_ICONS['admin'], label: 'Admin',        file: 'admin.html', adminOnly: true },
+  { page: 'profil',       icon: WBS_ICONS['profil'], label: 'Profil',       file: 'profil.html' },
 ];
 
 function initShell(pageKey, title) {
