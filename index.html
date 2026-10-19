@@ -35,7 +35,7 @@
 <script src="js/wings.js"></script>
 <script src="js/firebase-config.js"></script>
 <script>
-  document.querySelector('.wings-login').innerHTML = wbsWingsSVG();
+  if (typeof wbsWingsSVG === 'function') document.querySelector('.wings-login').innerHTML = wbsWingsSVG();
   // déjà connecté -> direct au dashboard
   if (getSession()) window.location.href = 'pages/dashboard.html';
 
