@@ -6,17 +6,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap');
 
 :root{
-  --bg-0:#ffffff;
-  --bg-1:#f6f7f9;
-  --card:#ffffff;
-  --card-2:#f3f4f6;
-  --line:#e3e5ea;
+  --bg-0:#faf8f3;
+  --bg-1:#ece9e1;
+  --card:#faf8f3;
+  --card-2:#f1eee7;
+  --line:#d9d4c8;
   --sunset-1:#0f0f12;   /* encre : accent principal */
   --sunset-2:#2b2d33;
   --gold:#b08d3c;       /* or : montants, accents de luxe */
   --gold-2:#e6cf8e;
   --cream:#17181c;      /* texte principal */
-  --muted:#7a7f8a;
+  --muted:#7d796e;
   --danger:#d93a3a;
   --success:#1f9d6b;
   --glow:rgba(15,15,18,.10);
@@ -53,7 +53,7 @@ h1,h2,h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacin
 .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
 .login-card{
   width:100%;max-width:440px;
-  background:#fff;
+  background:#faf8f3;
   border:1px solid var(--line);
   border-radius:18px;
   padding:34px 32px 30px;
@@ -75,7 +75,7 @@ h1,h2,h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacin
 .field label{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;}
 select, input[type=number], input[type=text], input[type=password], input[type=date], input[type=time], input[type=datetime-local]{
   color-scheme:light;
-  background:#fff;
+  background:#faf8f3;
   border:1px solid var(--line);
   color:var(--cream);
   padding:10px 11px;
@@ -101,7 +101,7 @@ button.submit{
 }
 button.submit:hover{background:#000;transform:translateY(-1px);box-shadow:0 8px 20px rgba(15,15,18,.22);}
 button.ghost, a.ghost{
-  background:#fff;border:1px solid var(--line);color:var(--cream);
+  background:#faf8f3;border:1px solid var(--line);color:var(--cream);
   padding:9px 16px;border-radius:var(--radius);cursor:pointer;
   font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;font-size:13px;
   transition:all .15s;
@@ -112,7 +112,7 @@ button.ghost:hover, a.ghost:hover{border-color:var(--sunset-1);background:var(--
 .shell{display:flex;min-height:100vh;}
 .sidebar{
   width:var(--sidebar-w);flex-shrink:0;
-  background:rgba(255,255,255,.96);
+  background:rgba(246,243,236,.97);
   border-right:1px solid var(--line);
   padding:22px 14px;
   position:sticky;top:0;height:100vh;
@@ -150,7 +150,7 @@ button.ghost:hover, a.ghost:hover{border-color:var(--sunset-1);background:var(--
 
 /* ---------- CARD ---------- */
 .card{
-  background:rgba(255,255,255,.82);
+  background:rgba(250,248,243,.84);
   border:1px solid var(--line);
   border-radius:14px;
   padding:20px;
@@ -179,7 +179,7 @@ button.ghost:hover, a.ghost:hover{border-color:var(--sunset-1);background:var(--
 /* ---------- TABS ---------- */
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
 .tabs button{
-  background:#fff;border:1px solid var(--line);color:var(--muted);
+  background:#faf8f3;border:1px solid var(--line);color:var(--muted);
   padding:9px 18px;border-radius:var(--radius);
   font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:14px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;
   transition:all .15s;
@@ -205,7 +205,7 @@ tr:last-child td{border-bottom:none;}
 tr:hover td{background:var(--bg-1);}
 .amt{color:var(--gold);font-weight:700;}
 .del{
-  background:#fff;border:1px solid var(--danger);color:var(--danger);
+  background:#faf8f3;border:1px solid var(--danger);color:var(--danger);
   border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:11px;font-family:'JetBrains Mono',monospace;
 }
 .del:hover{background:var(--danger);color:#fff;}
@@ -228,7 +228,7 @@ tr:hover td{background:var(--bg-1);}
 .member-checklist{display:flex;flex-wrap:wrap;gap:8px;padding:10px;background:var(--bg-1);border:1px solid var(--line);border-radius:var(--radius);}
 .member-checklist label{
   display:flex;align-items:center;gap:6px;
-  background:#fff;border:1px solid var(--line);border-radius:20px;
+  background:#faf8f3;border:1px solid var(--line);border-radius:20px;
   padding:6px 12px;font-size:13px;cursor:pointer;
 }
 .member-checklist label:has(input:checked){border-color:var(--sunset-1);background:var(--sunset-1);color:#fff;}
@@ -283,7 +283,7 @@ tr:hover td{background:var(--bg-1);}
 ::-webkit-scrollbar-thumb:hover{background:#9ea3ad;}
 
 .hero-banner{width:100%;display:block;border-radius:16px;margin:0 0 16px;border:1px solid var(--gold);box-shadow:0 14px 40px rgba(15,15,18,.22);}
-.login-card{background:rgba(255,255,255,.96);border-top:3px solid var(--gold);}
+.login-card{background:rgba(250,248,243,.96);border-top:3px solid var(--gold);}
 .sidebar .brand .brand-logo,.login-logo{border:1px solid var(--gold);}
 .tresor-ligne{border-top-color:var(--gold-2);}
 .tresor-ile.atteinte .label{color:var(--gold);}
