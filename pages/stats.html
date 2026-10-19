@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W.B.S — Stats & Quotas</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .bar-wrap{background:var(--bg-1);border:1px solid var(--line);border-radius:20px;height:10px;overflow:hidden;width:70px;}
+  .bar-fill{height:100%;background:linear-gradient(90deg, var(--sunset-2), var(--gold));}
+  .quota-cell{display:flex;flex-direction:column;align-items:center;gap:3px;}
+  .quota-cell .n{font-family:'JetBrains Mono',monospace;font-size:12px;}
+  .quota-cell .n.ok{color:var(--gold);font-weight:600;}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="pagehead">
+      <h2 id="pagehead-title">Stats & Quotas</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="card">
+      <div class="field" style="max-width:340px;">
+        <label>Semaine affichée</label>
+        <select id="q-semaine"></select>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button data-tab="stats" class="active">📊 Stats</button>
+      <button data-tab="quotas">📋 Quotas</button>
+    </div>
+
+    <div class="tabpanel active" id="panel-stats">
+      <div class="grid cols-4" id="stat-cards"></div>
+      <div class="card">
+        <h3>Meilleurs vendeurs (pochons)</h3>
+        <table><thead><tr><th>Membre</th><th>Pochons vendus</th></tr></thead><tbody id="top-vente"></tbody></table>
+      </div>
+      <div class="card">
+        <h3>Meilleurs go fast</h3>
+        <table><thead><tr><th>Membre</th><th>Cambriolages réalisés</th></tr></thead><tbody id="top-gofast"></tbody></table>
+      </div>
+    </div>
+
+    <div class="tabpanel" id="panel-quotas">
+      <div class="note-hint" style="margin-bottom:16px;">Les objectifs par catégorie se configurent dans Admin → Quotas. Remis à zéro à chaque nouvelle semaine.</div>
+      <div class="card">
+        <h3>Progression de la semaine</h3>
+        <table style="font-size:13px;">
+          <thead><tr>
+            <th>Membre</th>
+            <th>🎯 Actions (+ 🏠 Cambriolage)</th>
+            <th>💊 Vente</th>
+            <th>🧪 Labo</th>
+            <th>🏦 Fleeca</th>
+            <th>🔫 Armurerie</th>
+          </tr></thead>
+          <tbody id="quota-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/app.js"></script>
+<script>
+  const membre = initShell('stats', 'Stats & Quotas');
+  if (membre) {
+    document.querySelectorAll('.tabs button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tabpanel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    let semaineFiltre = '';
+    let dernieresListes = null; // { actions, gofasts, ventes, labos, fleecas, armureries, membres, quotas }
+
+    async function chargerSemaines() {
+      const [allSnap, activeSnap] = await Promise.all([
+        db.ref('semaines').get(),
+        db.ref('config/semaine_active_id').get()
+      ]);
+      const all = entries(allSnap.val()).sort((a, b) => (b[1].debut || '').localeCompare(a[1].debut || ''));
+      const activeId = activeSnap.val();
+      const sel = document.getElementById('q-semaine');
+      sel.innerHTML =
+        all.map(([id, s]) => `<option value="${id}">${s.nom}${s.bloquee ? ' 🔒' : ' 🟢'}${id === activeId ? ' (active)' : ''}</option>`).join('') +
+        '<option value="">— Toutes les semaines —</option>';
+      sel.value = activeId || '';
+      semaineFiltre = sel.value;
+      sel.addEventListener('change', () => {
+        semaineFiltre = sel.value;
+        renderStats();
+        renderQuotas();
+      });
+    }
+
+    function renderStats() {
+      if (!dernieresListes) return;
+      const { membres, actions, gofasts, ventes, fleecas, armureries } = dernieresListes;
+      const matchWeek = item => !semaineFiltre || item.semaine_id === semaineFiltre;
+      const actionsF = actions.filter(([,a]) => matchWeek(a));
+      const gofastsF = gofasts.filter(([,g]) => matchWeek(g));
+      const ventesF = ventes.filter(([,v]) => matchWeek(v));
+      const fleecasF = fleecas.filter(([,r]) => matchWeek(r));
+      const armureriesF = armureries.filter(([,r]) => matchWeek(r));
+
+      document.getElementById('stat-cards').innerHTML = `
+        <div class="stat"><div class="v">${actionsF.length}</div><div class="l">🎯 Actions totales</div></div>
+        <div class="stat"><div class="v">${gofastsF.reduce((s,[,g])=>s+(g.count||0),0)}</div><div class="l">🏠 Cambriolages totaux</div></div>
+        <div class="stat"><div class="v">${ventesF.reduce((s,[,v])=>s+(v.qty||0),0)}</div><div class="l">💊 Pochons vendus</div></div>
+        <div class="stat"><div class="v">${fleecasF.length + armureriesF.length}</div><div class="l">🏦 Braquages Fleeca/Armurerie</div></div>
+      `;
+
+      const parVente = {}; ventesF.forEach(([,v]) => parVente[v.membre_id] = (parVente[v.membre_id]||0) + (v.qty||0));
+      const parGofast = {}; gofastsF.forEach(([,g]) => parGofast[g.membre_id] = (parGofast[g.membre_id]||0) + (g.count||0));
+
+      const topList = (obj, unit) => Object.entries(obj)
+        .filter(([id]) => membres[id] && !membres[id].invisible)
+        .sort((a,b) => b[1]-a[1]).slice(0,8)
+        .map(([id, n]) => `<tr><td>${gradeInfo(membres[id].grade).emoji} ${membres[id].prenom}</td><td class="amt">${n} ${unit}</td></tr>`).join('')
+        || `<tr><td colspan="2" class="empty">Rien pour le moment.</td></tr>`;
+
+      document.getElementById('top-vente').innerHTML = topList(parVente, '💊');
+      document.getElementById('top-gofast').innerHTML = topList(parGofast, '🏠');
+    }
+
+    function renderQuotas() {
+      if (!dernieresListes) return;
+      const { membres, quotas, actions, gofasts, ventes, labos, fleecas, armureries } = dernieresListes;
+      const matchWeek = item => !semaineFiltre || item.semaine_id === semaineFiltre;
+
+      const compteCat = { actions: {}, vente: {}, labo: {}, fleeca: {}, armurerie: {} };
+      const add = (list, cat, key) => list.forEach(([, item]) => {
+        if (matchWeek(item)) compteCat[cat][item[key]] = (compteCat[cat][item[key]] || 0) + 1;
+      });
+      const addQty = (list, cat, key, qtyKey) => list.forEach(([, item]) => {
+        if (matchWeek(item)) compteCat[cat][item[key]] = (compteCat[cat][item[key]] || 0) + (item[qtyKey] || 0);
+      });
+      add(actions, 'actions', 'membre_id');
+      add(gofasts, 'actions', 'membre_id'); // cambriolage compte comme 1 action pour le quota (paye inchangée)
+      addQty(ventes, 'vente', 'membre_id', 'qty'); // compte le nombre de pochons vendus, pas le nombre de ventes
+      addQty(labos, 'labo', 'membre_id', 'branche_qty'); // compte le nombre de branches récoltées
+      fleecas.forEach(([, r]) => {
+        if (!matchWeek(r)) return;
+        (r.membres_ids || []).forEach(mid => { compteCat.fleeca[mid] = (compteCat.fleeca[mid] || 0) + 1; });
+      });
+      armureries.forEach(([, r]) => {
+        if (!matchWeek(r)) return;
+        (r.membres_ids || []).forEach(mid => { compteCat.armurerie[mid] = (compteCat.armurerie[mid] || 0) + 1; });
+      });
+
+      const cell = (cat, id) => {
+        const cible = quotas[cat] || 0;
+        const fait = compteCat[cat][id] || 0;
+        if (cible <= 0) return `<td><div class="quota-cell"><span class="n">${fait}</span></div></td>`;
+        const pct = Math.min(100, Math.round(fait / cible * 100));
+        return `<td><div class="quota-cell">
+          <span class="n ${fait >= cible ? 'ok' : ''}">${fait}/${cible}</span>
+          <div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;"></div></div>
+        </div></td>`;
+      };
+
+      const rows = Object.entries(membres).filter(([,m]) => m.actif !== false && !m.invisible).map(([id, m]) => {
+        const g = gradeInfo(m.grade);
+        return `<tr>
+          <td>${g.emoji} ${m.prenom}</td>
+          ${cell('actions', id)}
+          ${cell('vente', id)}
+          ${cell('labo', id)}
+          ${cell('fleeca', id)}
+          ${cell('armurerie', id)}
+        </tr>`;
+      }).join('');
+      document.getElementById('quota-body').innerHTML = rows || `<tr><td colspan="6" class="empty">Aucun membre.</td></tr>`;
+
+      // Petite fête si quelqu'un vient d'atteindre un objectif (une seule fois par membre/catégorie/semaine)
+      Object.entries(membres).filter(([,m]) => m.actif !== false && !m.invisible).forEach(([id]) => {
+        ['actions', 'vente', 'labo', 'fleeca', 'armurerie'].forEach(cat => {
+          const cible = quotas[cat] || 0;
+          const fait = compteCat[cat][id] || 0;
+          if (cible <= 0 || fait < cible) return;
+          const cle = `quota_ok_${semaineFiltre || 'all'}_${cat}_${id}`;
+          if (!sessionStorage.getItem(cle)) {
+            sessionStorage.setItem(cle, '1');
+            if (id === membre.id) celebrer(); // ne fête que pour la personne connectée
+          }
+        });
+      });
+    }
+
+    Promise.all([
+      db.ref('membres').get(),
+      db.ref('actions').get(),
+      db.ref('cambriolages').get(),
+      db.ref('ventes').get(),
+      db.ref('labos').get(),
+      db.ref('fleecas').get(),
+      db.ref('armureries').get(),
+      db.ref('config').get()
+    ]).then(([mSnap, aSnap, gSnap, vSnap, lSnap, flSnap, arSnap, cSnap]) => {
+      const membres = Object.fromEntries(entries(mSnap.val()));
+      const cfg = cSnap.val() || {};
+      const actions = entries(aSnap.val()).filter(([,a]) => a.resultat !== 'Échec');
+      const gofasts = entries(gSnap.val()).filter(([,g]) => g.resultat !== 'Échec');
+      const ventes = entries(vSnap.val()).filter(([,v]) => v.resultat !== 'Échec');
+      const labos = entries(lSnap.val()).filter(([,l]) => l.resultat !== 'Échec');
+      const fleecas = entries(flSnap.val()).filter(([,r]) => r.resultat !== 'Échec');
+      const armureries = entries(arSnap.val()).filter(([,r]) => r.resultat !== 'Échec');
+
+      dernieresListes = { membres, quotas: cfg.quotas || {}, actions, gofasts, ventes, labos, fleecas, armureries };
+      chargerSemaines().then(() => { renderStats(); renderQuotas(); });
+    });
+  }
+</script>
+</body>
+</html>
