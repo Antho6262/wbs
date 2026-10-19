@@ -37,8 +37,8 @@ body{
 /* Filigrane : logo du groupe en fond */
 body::before{
   content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:url('../img/watermark.png') center 55% / min(78vw,980px) auto no-repeat;
-  opacity:.075;
+  background:url('../img/watermark.png') center 50% / min(88vw,1150px) auto no-repeat;
+  opacity:.2;
 }
 .shell,.login-wrap{position:relative;z-index:1;}
 a{color:inherit;text-decoration:none;}
@@ -150,7 +150,7 @@ button.ghost:hover, a.ghost:hover{border-color:var(--sunset-1);background:var(--
 
 /* ---------- CARD ---------- */
 .card{
-  background:rgba(255,255,255,.93);
+  background:rgba(255,255,255,.82);
   border:1px solid var(--line);
   border-radius:14px;
   padding:20px;
