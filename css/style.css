@@ -10,13 +10,13 @@
   --bg-1:#c3c2bd;
   --card:#dcdbd6;
   --card-2:#cdccc6;
-  --line:#a8a69e;
+  --line:#b3a98f;
   --sunset-1:#0f0f12;   /* encre : accent principal */
   --sunset-2:#2b2d33;
   --gold:#b08d3c;       /* or : montants, accents de luxe */
   --gold-2:#e6cf8e;
   --cream:#17181c;      /* texte principal */
-  --muted:#55534d;
+  --muted:#6b4f1a;
   --danger:#d93a3a;
   --success:#1f9d6b;
   --glow:rgba(15,15,18,.10);
@@ -38,7 +38,7 @@ body{
 a{color:inherit;text-decoration:none;}
 button, input, select, textarea{font-family:'Barlow',sans-serif;color:var(--cream);}
 ::selection{background:#0f0f12; color:#fff;}
-::placeholder{color:#b3b7c0;}
+::placeholder{color:#a38a55;}
 
 h1,h2,h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin:0;color:var(--sunset-1);}
 
@@ -331,3 +331,34 @@ html.wbs-leave body::after{animation:wingCloseR .45s cubic-bezier(.6,0,.3,1) bot
   body::before,body::after,.main > *,.tabpanel.active,.sidebar .brand .brand-logo,.login-logo{animation:none !important;}
   body::before,body::after{display:none;}
 }
+
+/* ============================================================
+   FINITION PREMIUM — logo en fond, textes bronze & or (aucun gris)
+   ============================================================ */
+html{background:var(--bg-1);}
+html::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:url('../img/watermark.png') center 52% / min(92vw,1250px) auto no-repeat;
+  opacity:.34;
+}
+.card{background:rgba(222,220,213,.74);backdrop-filter:blur(2px);}
+.sidebar{background:rgba(214,211,203,.9);}
+.login-card{background:rgba(226,223,215,.9);}
+
+/* titres : noir profond, soulignement or */
+h1,h2,h3{color:#121214;}
+.card h3{border-bottom:1px solid rgba(176,141,60,.55);}
+
+/* valeurs : dégradé or */
+.stat .v,.grand{
+  background:linear-gradient(135deg,#7a5a14 0%,#c9a24a 45%,#8a6a1f 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+}
+.stat .l,.cd-bloc .l,.tresor-ile .label,.field label,th{color:#6b4f1a;}
+.amt,.total-chip b{color:#8a6a1f;}
+td{color:#1b1a17;}
+.note-hint,.empty{color:#5e4718;}
+.sidebar .who .grade{color:#8a6a1f;font-weight:600;}
+.sidebar .brand .tag,.login-sub{color:#8a6a1f;}
+select,input[type=number],input[type=text],input[type=password],input[type=date],input[type=time],input[type=datetime-local]{border-color:#b3a98f;color:#17181c;}
+body{background:transparent;}
