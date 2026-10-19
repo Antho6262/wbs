@@ -281,7 +281,7 @@
 
     // grades du formulaire membre
     document.getElementById('m-grade').innerHTML = GRADES_DEFAUT
-      .map(g => `<option value="${g.id}">${g.emoji} ${g.nom}</option>`).join('');
+      .map(g => `<option value="${g.id}">${g.nom}</option>`).join('');
 
     // ---- config (taux) ----
     db.ref('config').on('value', snap => {
@@ -389,7 +389,7 @@
           <span class="member-name">${m.prenom} ${m.role === 'admin' ? '<span class="badge admin">Admin</span>' : ''}</span>
           <span style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
             <select class="grade-select" data-id="${id}" title="Change le grade de ce membre">
-              ${GRADES_DEFAUT.map(gr => `<option value="${gr.id}" ${gr.id === m.grade ? 'selected' : ''}>${gr.emoji} ${gr.nom}</option>`).join('')}
+              ${GRADES_DEFAUT.map(gr => `<option value="${gr.id}" ${gr.id === m.grade ? 'selected' : ''}>${gr.nom}</option>`).join('')}
             </select>
             <label style="display:flex;align-items:center;gap:5px;font-size:13px;color:var(--muted);" title="Donne l'accès total au site (page Admin, toutes les permissions ignorées)">
               <input type="checkbox" class="admin-toggle" data-id="${id}" ${m.role === 'admin' ? 'checked' : ''}> Admin

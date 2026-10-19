@@ -19,15 +19,15 @@ const db = firebase.database();
 
 // Grades fixes du groupe (créés automatiquement à l'initialisation)
 const GRADES_DEFAUT = [
-  { id: 'fondateur',    nom: 'Fondateur',   emoji: '🤍', ordre: 0 },
-  { id: 'chef',         nom: 'Chef',        emoji: '👑', ordre: 1 },
-  { id: 'colead',       nom: 'Co Lead',     emoji: '🥈', ordre: 2 },
+  { id: 'fondateur',    nom: 'Fondateur',   emoji: '👑', ordre: 0 },
+  { id: 'chef',         nom: 'Chef',        emoji: '🔱', ordre: 1 },
+  { id: 'colead',       nom: 'Co Lead',     emoji: '💎', ordre: 2 },
   { id: 'brasdroit',    nom: 'Bras Droit',  emoji: '⚔️', ordre: 3 },
   { id: 'ga',           nom: 'GA',          emoji: '🛡️', ordre: 4 },
   { id: 'soldatchef',   nom: 'Soldat Chef', emoji: '🎖️', ordre: 5 },
-  { id: 'soldat2',      nom: 'Soldat II',   emoji: '🔸', ordre: 6 },
-  { id: 'soldat',       nom: 'Soldat',      emoji: '🔹', ordre: 7 },
-  { id: 'recru',        nom: 'Recru',       emoji: '⚪', ordre: 8 },
+  { id: 'soldat2',      nom: 'Soldat II',   emoji: '⭐', ordre: 6 },
+  { id: 'soldat',       nom: 'Soldat',      emoji: '🪖', ordre: 7 },
+  { id: 'recru',        nom: 'Recru',       emoji: '🔰', ordre: 8 },
 ];
 
 function gradeInfo(id) {

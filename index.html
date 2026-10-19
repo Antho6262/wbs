@@ -58,7 +58,7 @@
     sel.innerHTML = membres.length === 0
       ? '<option value="">Aucun membre — initialise le site</option>'
       : '<option value="" disabled selected>— Choisis ton pseudo —</option>' +
-        membres.map(([id, m]) => `<option value="${id}">${gradeInfo(m.grade).emoji} ${m.prenom}</option>`).join('');
+        membres.map(([id, m]) => `<option value="${id}">${m.prenom} — ${gradeInfo(m.grade).nom}</option>`).join('');
   }).catch(err => console.error(err));
 
   document.getElementById('form-login').addEventListener('submit', async (e) => {
