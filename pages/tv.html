@@ -193,7 +193,7 @@
         if (item.semaine_id === activeWeekId) compteActionsSemaine[item.membre_id] = (compteActionsSemaine[item.membre_id] || 0) + 1;
       });
 
-      const actifs = Object.entries(membres).filter(([id, m]) => m.actif !== false && !m.invisible);
+      const actifs = Object.entries(membres).filter(([id, m]) => m.actif !== false && !isCache(m));
 
       // Classement (all-time)
       const classement = actifs

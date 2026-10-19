@@ -155,7 +155,7 @@
       ventesF.forEach(([,v]) => { fait.vente[v.membre_id] = (fait.vente[v.membre_id] || 0) + (v.qty || 0); });
       const qa = quotas.actions || 0, qv = quotas.vente || 0;
       const cartes = Object.entries(membres)
-        .filter(([,m]) => m.actif !== false && !m.invisible)
+        .filter(([,m]) => m.actif !== false && !isCache(m))
         .map(([id, m]) => {
           const g = gradeInfo(m.grade);
           const ra = Math.max(0, qa - (fait.actions[id] || 0));
@@ -170,7 +170,7 @@
 
       const rows = Object.entries(partParMembre)
         .map(([id, total]) => ({ id, total, m: membres[id] }))
-        .filter(r => r.m && !r.m.invisible)
+        .filter(r => r.m && !isCache(r.m))
         .sort((a, b) => b.total - a.total);
 
       document.getElementById('ranking-body').innerHTML = rows.length === 0
@@ -222,7 +222,7 @@
       chargerSemaines().then(renderTout);
 
       // Chef du jour (surprise cosmétique)
-      const membresActifs = Object.entries(membres).filter(([id, m]) => m.actif !== false && !m.invisible);
+      const membresActifs = Object.entries(membres).filter(([id, m]) => m.actif !== false && !isCache(m));
       const capitaine = capitaineDuJour(membresActifs);
       if (capitaine) {
         const [, m] = capitaine;

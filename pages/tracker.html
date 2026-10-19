@@ -273,7 +273,7 @@
     });
 
     function fillMemberSelects() {
-      const visible = ([id, m]) => m.actif !== false && (!m.invisible || id === membre.id);
+      const visible = ([id, m]) => m.actif !== false && (!isCache(m) || id === membre.id);
       const listePourSelect = isAdmin(membre)
         ? Object.entries(membres).filter(visible)
         : Object.entries(membres).filter(([id]) => id === membre.id); // non-admin : soi-même uniquement

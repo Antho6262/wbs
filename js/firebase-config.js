@@ -30,6 +30,9 @@ const GRADES_DEFAUT = [
   { id: 'recru',        nom: 'Recru',       emoji: '🔰', ordre: 8 },
 ];
 
+// Membre masqué partout sur le site : uniquement ceux marqués « invisible »
+function isCache(m) { return !!(m && m.invisible); }
+
 function gradeInfo(id) {
   return GRADES_DEFAUT.find(g => g.id === id) || GRADES_DEFAUT[GRADES_DEFAUT.length - 1];
 }

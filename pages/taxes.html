@@ -89,7 +89,7 @@
     db.ref('membres').on('value', s => {
       membresMap = Object.fromEntries(entries(s.val()));
       document.getElementById('tx-membre').innerHTML = Object.entries(membresMap)
-        .filter(([id, m]) => !m.invisible || id === membre.id)
+        .filter(([id, m]) => !isCache(m) || id === membre.id)
         .map(([id, m]) => `<option value="${id}">${m.prenom} — ${gradeInfo(m.grade).nom}</option>`).join('')
         || '<option value="">Aucun membre</option>';
     });

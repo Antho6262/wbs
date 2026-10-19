@@ -52,7 +52,7 @@
   // remplit la liste déroulante des pseudos (les membres invisibles n'y apparaissent jamais)
   db.ref('membres').get().then(snap => {
     const membres = entries(snap.val())
-      .filter(([id, m]) => m.actif !== false && !m.invisible)
+      .filter(([id, m]) => m.actif !== false && !isCache(m))
       .sort((a, b) => a[1].prenom.localeCompare(b[1].prenom));
     const sel = document.getElementById('l-pseudo');
     sel.innerHTML = membres.length === 0

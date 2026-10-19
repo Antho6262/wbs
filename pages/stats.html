@@ -128,7 +128,7 @@
       const parGofast = {}; gofastsF.forEach(([,g]) => parGofast[g.membre_id] = (parGofast[g.membre_id]||0) + (g.count||0));
 
       const topList = (obj, unit) => Object.entries(obj)
-        .filter(([id]) => membres[id] && !membres[id].invisible)
+        .filter(([id]) => membres[id] && !isCache(membres[id]))
         .sort((a,b) => b[1]-a[1]).slice(0,8)
         .map(([id, n]) => `<tr><td>${gradeInfo(membres[id].grade).emoji} ${membres[id].prenom}</td><td class="amt">${n} ${unit}</td></tr>`).join('')
         || `<tr><td colspan="2" class="empty">Rien pour le moment.</td></tr>`;
@@ -173,7 +173,7 @@
         </div></td>`;
       };
 
-      const rows = Object.entries(membres).filter(([,m]) => m.actif !== false && !m.invisible).map(([id, m]) => {
+      const rows = Object.entries(membres).filter(([,m]) => m.actif !== false && !isCache(m)).map(([id, m]) => {
         const g = gradeInfo(m.grade);
         return `<tr>
           <td>${g.emoji} ${m.prenom}</td>
@@ -187,7 +187,7 @@
       document.getElementById('quota-body').innerHTML = rows || `<tr><td colspan="6" class="empty">Aucun membre.</td></tr>`;
 
       // Petite fête si quelqu'un vient d'atteindre un objectif (une seule fois par membre/catégorie/semaine)
-      Object.entries(membres).filter(([,m]) => m.actif !== false && !m.invisible).forEach(([id]) => {
+      Object.entries(membres).filter(([,m]) => m.actif !== false && !isCache(m)).forEach(([id]) => {
         ['actions', 'vente', 'labo', 'fleeca', 'armurerie'].forEach(cat => {
           const cible = quotas[cat] || 0;
           const fait = compteCat[cat][id] || 0;
