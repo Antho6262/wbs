@@ -37,6 +37,7 @@ function initShell(pageKey, title) {
 
   document.getElementById('sidebar').innerHTML = `
     <div class="brand">
+      <div class="wings-wrap">${wbsWingsSVG()}</div>
       <img src="../img/logo.png" alt="W.B.S" class="brand-logo">
       <div class="tag">WHITE BLOCK SYNDICAT</div>
     </div>
@@ -55,6 +56,14 @@ function initShell(pageKey, title) {
 
   if (document.getElementById('pagehead-title')) {
     document.getElementById('pagehead-title').textContent = title;
+  }
+
+  const ph = document.querySelector('.pagehead');
+  if (ph && !ph.querySelector('.wings-wrap')) {
+    const w = document.createElement('div');
+    w.className = 'wings-wrap wings-head';
+    w.innerHTML = wbsWingsSVG({ dur: 4 });
+    ph.appendChild(w);
   }
 
   ensureActiveWeek().catch(err => console.error('ensureActiveWeek', err));

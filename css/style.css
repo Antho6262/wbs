@@ -316,19 +316,13 @@ html.wbs-leave body::after{animation:wingCloseR .45s cubic-bezier(.6,0,.3,1) bot
 .main > *:nth-child(4){animation-delay:1.2s;}.main > *:nth-child(n+5){animation-delay:1.3s;}
 @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
 
-/* changement d'onglet dans une page : le panneau s'ouvre comme une aile */
-.tabpanel.active{animation:tabWing .45s cubic-bezier(.2,.8,.2,1);}
-@keyframes tabWing{from{opacity:0;transform:translateX(-18px) scaleX(.97);}to{opacity:1;transform:none;}}
 
-/* logo du menu : battement d'ailes lent + réaction au survol */
-.sidebar .brand .brand-logo{animation:flap 5s ease-in-out infinite;transform-origin:center;}
-@keyframes flap{0%,100%{transform:scale(1);}50%{transform:scaleX(1.05) scaleY(.985);}}
-.sidebar .brand .brand-logo:hover,.login-logo:hover{animation:none;transform:scale(1.06);transition:transform .25s;}
-.login-logo{animation:flap 5s ease-in-out infinite;}
+/* logo : simple réaction au survol */
+.sidebar .brand .brand-logo:hover,.login-logo:hover{transform:scale(1.04);transition:transform .25s;}
 .navlist a{transition:all .2s;}.navlist a:hover{transform:translateX(3px);}
 
 @media (prefers-reduced-motion:reduce){
-  body::before,body::after,.main > *,.tabpanel.active,.sidebar .brand .brand-logo,.login-logo{animation:none !important;}
+  body::before,body::after,.main > *,.wbs-wings *{animation:none !important;}
   body::before,body::after{display:none;}
 }
 
@@ -362,3 +356,14 @@ td{color:#1b1a17;}
 .sidebar .brand .tag,.login-sub{color:#8a6a1f;}
 select,input[type=number],input[type=text],input[type=password],input[type=date],input[type=time],input[type=datetime-local]{border-color:#b3a98f;color:#17181c;}
 body{background:transparent;}
+
+/* ---------- Ailes animées ---------- */
+.wings-wrap{pointer-events:none;line-height:0;}
+.wbs-wings{width:100%;height:auto;display:block;filter:drop-shadow(0 4px 6px rgba(15,15,18,.25));overflow:visible;}
+.sidebar .brand .wings-wrap{width:100%;margin:-14px auto -62px;position:relative;z-index:0;}
+.sidebar .brand .brand-logo{position:relative;z-index:1;}
+.login-card .wings-login{width:100%;max-width:340px;margin:-24px auto -92px;position:relative;z-index:0;}
+.login-card .login-logo{position:relative;z-index:1;}
+.pagehead{position:relative;}
+.wings-head{position:absolute;right:0;top:-34px;width:280px;height:109px;overflow:hidden;}
+@media(max-width:1100px){.wings-head{display:none;}}
