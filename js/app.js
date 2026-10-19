@@ -2,13 +2,13 @@
 // W.B.S — Shell commun (sidebar + topbar)
 // ============================================================
 const NAV_ITEMS = [
-  { page: 'dashboard',    icon: '🗺️', label: 'Dashboard',    file: 'dashboard.html' },
+  { page: 'dashboard',    icon: '🏛️', label: 'Dashboard',    file: 'dashboard.html' },
   { page: 'planning',     icon: '📅', label: 'Planning',     file: 'planning.html' },
   { page: 'tracker',      icon: '🎯', label: 'Tracker',      file: 'tracker.html' },
   { page: 'stock',        icon: '📦', label: 'Stock',        file: 'stock.html' },
   { page: 'armes',        icon: '🔫', label: 'Armurerie',    file: 'armes.html' },
   { page: 'transactions', icon: '🧾', label: 'Transactions', file: 'transactions.html' },
-  { page: 'blanchiment',  icon: '🌊', label: 'Blanchiment',  file: 'blanchiment.html' },
+  { page: 'blanchiment',  icon: '💸', label: 'Blanchiment',  file: 'blanchiment.html' },
   { page: 'stats',        icon: '📊', label: 'Stats & Quotas', file: 'stats.html' },
   { page: 'paye',         icon: '💰', label: 'Paye',         file: 'paye.html' },
   { page: 'taxes',        icon: '⚖️', label: 'Taxes',        file: 'taxes.html' },
