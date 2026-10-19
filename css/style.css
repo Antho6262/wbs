@@ -367,3 +367,6 @@ body{background:transparent;}
 .pagehead{position:relative;}
 .wings-head{position:absolute;right:0;top:-34px;width:280px;height:109px;overflow:hidden;}
 @media(max-width:1100px){.wings-head{display:none;}}
+
+/* blocs retirés de l'affichage (priorité sur le style inline posé par le JS) */
+.bloc-cache{display:none !important;}
