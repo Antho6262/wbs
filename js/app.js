@@ -488,3 +488,19 @@ function demarrerAlertesPlanning() {
   db.ref('planning').on('value', snap => { evenements = snap.val() || {}; verifier(); });
   setInterval(verifier, 15000);
 }
+
+
+// ------------------------------------------------------------
+// Transition de page : les ailes du logo se referment avant de
+// changer de page (l'ouverture est gérée en CSS au chargement).
+// ------------------------------------------------------------
+document.addEventListener('click', (e) => {
+  const a = e.target.closest && e.target.closest('.navlist a, a.ghost[href]');
+  if (!a || e.ctrlKey || e.metaKey || e.shiftKey || a.target === '_blank') return;
+  const href = a.getAttribute('href');
+  if (!href || href.startsWith('#') || a.classList.contains('active')) return;
+  e.preventDefault();
+  document.documentElement.classList.add('wbs-leave');
+  setTimeout(() => { window.location.href = href; }, 450);
+});
+window.addEventListener('pageshow', () => document.documentElement.classList.remove('wbs-leave'));
