@@ -126,8 +126,8 @@ button.ghost:hover, a.ghost:hover{border-color:var(--sunset-1);background:var(--
 }
 .navlist a:hover{color:var(--sunset-1);background:var(--bg-1);}
 .navlist a.active{background:var(--sunset-1);color:var(--gold-2);box-shadow:inset 3px 0 0 var(--gold);}
-.navlist a .ic{font-size:16px;width:20px;text-align:center;filter:grayscale(1);}
-.navlist a.active .ic{filter:grayscale(1) invert(1);}
+.navlist a .ic{font-size:16px;width:20px;text-align:center;}
+
 .sidebar .who{
   border-top:1px solid var(--line);
   margin-top:14px;padding-top:14px;
