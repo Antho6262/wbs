@@ -384,3 +384,28 @@ h2 img.emoji,h3 img.emoji{height:1.15em;width:1.15em;}
 
 /* emojis des grades et des noms : plus grands, plus lisibles */
 .sidebar .who b img.emoji,.sidebar .who .grade img.emoji,td img.emoji,.member-name img.emoji{height:1.45em;width:1.45em;vertical-align:-.35em;}
+
+/* ---------- Sélecteur de pseudo (connexion) ---------- */
+.pseudo-pick{position:relative;}
+.pp-btn{
+  width:100%;display:flex;align-items:center;gap:10px;text-align:left;cursor:pointer;
+  background:#e6e5e0;border:1px solid #b3a98f;border-radius:var(--radius);padding:10px 12px;font-size:16px;color:#17181c;
+}
+.pp-btn:hover,.pp-btn:focus{border-color:var(--gold);outline:none;box-shadow:0 0 0 3px rgba(176,141,60,.18);}
+.pp-placeholder{color:#8a6a1f;}
+.pp-caret{margin-left:auto;color:var(--gold);}
+.pp-list{
+  position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:50;max-height:320px;overflow-y:auto;
+  background:#ecebe6;border:1px solid var(--gold);border-radius:12px;padding:6px;
+  box-shadow:0 18px 40px rgba(15,15,18,.3);
+}
+.pp-item{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:9px;cursor:pointer;transition:background .12s;}
+.pp-item:hover{background:#141416;}
+.pp-item:hover .pp-name{color:#fff;}
+.pp-item:hover .pp-grade{color:var(--gold-2);}
+.pp-em{font-size:22px;width:28px;text-align:center;line-height:1;display:inline-flex;align-items:center;justify-content:center;}
+.pp-em img.emoji,.pp-btn img.emoji{height:26px;width:26px;margin:0;vertical-align:middle;}
+.pp-name{font-weight:800;font-size:16px;color:#121214;letter-spacing:.2px;}
+.pp-grade{margin-left:auto;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:#8a6a1f;}
+.pp-btn .pp-name{font-weight:800;}
+.pp-empty{padding:12px;color:#6b4f1a;font-style:italic;}

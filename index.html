@@ -17,7 +17,11 @@
     <form id="form-login">
       <div class="field">
         <label>Pseudo</label>
-        <select id="l-pseudo" required></select>
+        <select id="l-pseudo" style="display:none"></select>
+        <div class="pseudo-pick" id="pseudo-pick">
+          <button type="button" class="pp-btn" id="pp-btn"><span class="pp-placeholder">— Choisis ton pseudo —</span><span class="pp-caret">▾</span></button>
+          <div class="pp-list" id="pp-list" hidden></div>
+        </div>
         <input type="text" id="l-pseudo-texte" placeholder="Ton pseudo" style="display:none;" autocomplete="username">
       </div>
       <div class="field">
@@ -45,6 +49,7 @@
   if (modeDirect) {
     document.getElementById('l-pseudo').style.display = 'none';
     document.getElementById('l-pseudo').required = false;
+    document.getElementById('pseudo-pick').style.display = 'none';
     document.getElementById('l-pseudo-texte').style.display = 'block';
     document.getElementById('l-pseudo-texte').required = true;
   }
@@ -59,7 +64,31 @@
       ? '<option value="">Aucun membre — initialise le site</option>'
       : '<option value="" disabled selected>— Choisis ton pseudo —</option>' +
         membres.map(([id, m]) => `<option value="${id}">${m.prenom} — ${gradeInfo(m.grade).nom}</option>`).join('');
+    construirePicker(membres);
   }).catch(err => console.error(err));
+
+  // Sélecteur de pseudo : emoji de grade, nom en gras, grade en doré
+  function construirePicker(membres) {
+    const btn = document.getElementById('pp-btn');
+    const list = document.getElementById('pp-list');
+    const sel = document.getElementById('l-pseudo');
+    list.innerHTML = membres.length === 0
+      ? '<div class="pp-empty">Aucun membre — initialise le site</div>'
+      : membres.map(([id, m]) => {
+          const g = gradeInfo(m.grade);
+          return `<div class="pp-item" data-id="${id}"><span class="pp-em">${g.emoji}</span><b class="pp-name">${m.prenom}</b><span class="pp-grade">${g.nom}</span></div>`;
+        }).join('');
+    btn.addEventListener('click', (e) => { e.stopPropagation(); list.hidden = !list.hidden; });
+    list.addEventListener('click', (e) => {
+      const it = e.target.closest('.pp-item');
+      if (!it) return;
+      sel.value = it.dataset.id;
+      btn.innerHTML = it.innerHTML + '<span class="pp-caret">▾</span>';
+      list.hidden = true;
+      document.getElementById('l-pass').focus();
+    });
+    document.addEventListener('click', () => { list.hidden = true; });
+  }
 
   document.getElementById('form-login').addEventListener('submit', async (e) => {
     e.preventDefault();
